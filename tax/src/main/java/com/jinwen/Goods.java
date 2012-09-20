@@ -1,4 +1,4 @@
-package com.jinwen.tax;
+package com.jinwen;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +15,7 @@ public class Goods {
     private boolean isImported;
 
     public Goods(){
-        goodsName = "";
+        goodsName = "UNINITIALIZED";
         priceTag = 0.0;
         goodsAmount = 0;
         isExempt = false;
@@ -30,43 +30,42 @@ public class Goods {
         this.isImported = isImported;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
     public String getGoodsName() {
         return goodsName;
-    }
-
-    public void setGoodsAmount(int goodsAmount) {
-        this.goodsAmount = goodsAmount;
     }
 
     public int getGoodsAmount() {
         return goodsAmount;
     }
 
-    public void setPriceTag(double priceTag) {
-        this.priceTag = priceTag;
-    }
-
     public double getPriceTag() {
         return priceTag;
-    }
-
-    public void setExempt(boolean exempt) {
-        isExempt = exempt;
     }
 
     public boolean isExempt() {
         return isExempt;
     }
 
-    public void setImported(boolean imported) {
-        isImported = imported;
-    }
-
     public boolean isImported() {
         return isImported;
+    }
+
+    public void addGoods(int amount) {
+        if (amount <= 0){
+            return;
+        }
+        this.goodsAmount += amount;
+    }
+
+    public void removeGoods(int amount) {
+        if (amount <= 0){
+            return;
+        }
+        if (this.goodsAmount <= amount){
+            this.goodsAmount = 0;
+        }
+        else {
+            this.goodsAmount -= amount;
+        }
     }
 }

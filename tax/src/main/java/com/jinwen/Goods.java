@@ -14,15 +14,7 @@ public class Goods {
     private boolean isExempt;
     private boolean isImported;
 
-    public Goods(){
-        goodsName = "UNINITIALIZED";
-        priceTag = 0.0;
-        goodsAmount = 0;
-        isExempt = false;
-        isImported = false;
-    }
-
-    public Goods(String goodsName, double priceTag, int goodsAmount, boolean isExempt, boolean isImported){
+    public Goods(String goodsName, double priceTag, int goodsAmount, boolean isExempt, boolean isImported) {
         this.goodsName = goodsName;
         this.priceTag = priceTag;
         this.goodsAmount = goodsAmount;
@@ -51,20 +43,19 @@ public class Goods {
     }
 
     public void addGoods(int amount) {
-        if (amount <= 0){
+        if (amount <= 0) {
             return;
         }
         this.goodsAmount += amount;
     }
 
     public void removeGoods(int amount) {
-        if (amount <= 0){
+        if (amount <= 0) {
             return;
         }
-        if (this.goodsAmount <= amount){
+        if (this.goodsAmount <= amount) {
             this.goodsAmount = 0;
-        }
-        else {
+        } else {
             this.goodsAmount -= amount;
         }
     }

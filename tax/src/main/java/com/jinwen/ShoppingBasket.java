@@ -1,5 +1,7 @@
 package com.jinwen;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: twer
@@ -8,23 +10,21 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public class ShoppingBasket {
-    private ReceiptDetails basket = new ReceiptDetails();
+    private ArrayList<Goods> basket = new ArrayList<Goods>();
 
-    public ReceiptDetails getReceipt(){
+    public ArrayList<Goods> getReceipt(){
         return basket;
     }
 
+    public boolean isEmpty(){
+        return basket.isEmpty() ? true : false;
+    }
+
     public void addGoods(Goods goods) {
-        basket.list.put(goods.getGoodsName(), goods);
+        basket.add(goods);
     }
 
     public void dropGoods(Goods goods){
-        basket.list.remove(goods);
-    }
-
-    public void printReceipt() {
-        basket.listGoodsInfo();
-        basket.calSaleTaxes();
-        basket.calToTal();
+        basket.remove(goods);
     }
 }

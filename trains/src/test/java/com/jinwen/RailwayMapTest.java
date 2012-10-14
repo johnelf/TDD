@@ -8,7 +8,16 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public class RailwayMapTest extends junit.framework.TestCase {
+
+    public void setup(){
+
+    }
+
     public void testGetRoute() throws Exception {
+
+    }
+
+    public void testShouldLoadMapCorrectly() throws Exception {
 
     }
 

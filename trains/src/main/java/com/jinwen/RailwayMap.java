@@ -12,13 +12,28 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class RailwayMap implements Indicator{
-    private Map<String, Map<String, String>> railwayMap = new HashMap<String, Map<String, String>>();
+    private Map<CityName, Map<CityName, String>> railwayMap = new HashMap<CityName, Map<CityName, String>>();
+    private String mapName = "";
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
+    }
 
     public boolean isMapExist(){
         return railwayMap.isEmpty() ? false : true;
     }
 
     public boolean mapLoader(String map){
+        if (!map.isEmpty()){
+            Map<CityName, String> otherCity = new HashMap<CityName, String>();
+            otherCity.put(CityName.CHENGDU, "5");
+            railwayMap.put(CityName.BEIJING, otherCity);
+        }
+
         return true;
     }
 
@@ -26,7 +41,7 @@ public class RailwayMap implements Indicator{
         return null;
     }
 
-    public int getDistance(String route) {
+    public int getDistance(String path) {
         return 0;
     }
 }

@@ -23,12 +23,10 @@ public class TestMain {
         roverConsole.marsRoverController.addMarsRover(marsRover1);
         roverConsole.marsRoverController.addMarsRover(marsRover2);
 
-        roverConsole.marsRoverController.setCurrentMarsRover(marsRover1);
+        roverConsole.marsRoverController.connectWithMarsRover(marsRover1);
         roverConsole.marsRoverController.inputCommand("LMLMLMLMM");
-        roverConsole.marsRoverController.getCurrentRoverLocationAndDirection();
         roverConsole.marsRoverController.getNextMarsRover();
         roverConsole.marsRoverController.inputCommand("MMRMMRMRRM");
-        roverConsole.marsRoverController.getCurrentRoverLocationAndDirection();
 
     }
 }

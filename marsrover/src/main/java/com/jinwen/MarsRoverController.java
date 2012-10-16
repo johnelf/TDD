@@ -22,34 +22,60 @@ public class MarsRoverController {
         return currentMarsRover == null ? null : this.currentMarsRover;
     }
 
-    public void setCurrentMarsRover(MarsRover marsRover) {
-        this.currentMarsRover = marsRover;
-        this.currentMarsRover.startWorking();
+    public boolean getCurrentMarsRoverStatus() {
+        return currentMarsRover != null && currentMarsRover.isMarsRoverWorking();
+    }
+
+    public MarsRover connectWithMarsRover(MarsRover marsRover) {
+        if (currentMarsRover == null) {
+            marsRover.startWorking();
+            return currentMarsRover = marsRover;
+        } else if (!currentMarsRover.isMarsRoverWorking()) {
+            currentMarsRover = marsRover;
+            currentMarsRover.startWorking();
+            return currentMarsRover;
+        } else {
+            return currentMarsRover;
+        }
+    }
+
+    public boolean disConnectWithCurrentMarsRover() {
+        if (currentMarsRover != null) {
+            currentMarsRover.finishWorking();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public MarsRover getNextMarsRover() {
-        if (!marsRovers.isEmpty()) {
-            this.currentMarsRover.finishWorking();
-            return marsRovers.get((marsRovers.indexOf(currentMarsRover) + 1) % marsRovers.size());
+        if (!marsRovers.isEmpty() || currentMarsRover != null) {
+            if (currentMarsRover.isMarsRoverWorking()) {
+                return getCurrentMarsRover();
+            } else {
+                currentMarsRover = marsRovers.get((marsRovers.indexOf(currentMarsRover) + 1) % marsRovers.size());
+                return currentMarsRover;
+            }
         }
         return null;
     }
 
-    public void inputCommand(String command) {
+    public String inputCommand(String command) {
         if (getCurrentMarsRover() != null) {
             int index = 0;
             while (index < command.length()) {
-                String roverCommand = command.substring(index++, index + 1);
+                String roverCommand = (((index + 1) < command.length()) ? command.substring(index++, index) : command.substring(index++));
                 if (roverCommand.equals("M")) {
                     currentMarsRover.move();
-                }else {
+                } else {
                     currentMarsRover.changeDirection(roverCommand);
                 }
             }
         }
+        return getCurrentRoverLocationAndDirection();
     }
 
-    public String getCurrentRoverLocationAndDirection() {
+    private String getCurrentRoverLocationAndDirection() {
         if (getCurrentMarsRover() != null) {
             return currentMarsRover.getLocation() + currentMarsRover.getDirection();
         }

@@ -96,7 +96,7 @@ public class MarsRover implements Robert{
     }
 
     public String getLocation() {
-        return Integer.toString(this.xPosition) + " " + Integer.toString(this.yPosition) + " ";
+        return Integer.toString(this.xPosition) + ", " + Integer.toString(this.yPosition) + " ";
     }
 
     public String getDirection() {

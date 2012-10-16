@@ -7,12 +7,12 @@ package com.jinwen;
  * Time: 4:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GeographOnMars implements GenericMap{
+public class GeographerOnMars implements GenericMap{
     private final int width;
     private final int height;
     private String mapName = "unamed";
 
-    public GeographOnMars(String mapName, int width, int height) {
+    public GeographerOnMars(String mapName, int width, int height) {
         this.width = width;
         this.height = height;
         this.mapName = mapName;

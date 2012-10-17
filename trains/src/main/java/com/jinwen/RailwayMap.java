@@ -24,7 +24,7 @@ public class RailwayMap implements Indicator{
     }
 
     public boolean isMapExist(){
-        return railwayMap.isEmpty() ? false : true;
+        return !railwayMap.isEmpty();
     }
 
     public boolean mapLoader(String map){

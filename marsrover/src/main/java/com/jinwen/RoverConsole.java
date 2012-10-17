@@ -17,9 +17,15 @@ public class RoverConsole implements CommandInterceptor{
     }
 
     @Override
-    public void interceptCommand(String command) {
+    public boolean interceptCommand(String command) {
         if (command != null) {
-
+            for (char var : command.toCharArray()) {
+                if (var != 'L' && var != 'R' && var != 'M'){
+                    return false;
+                }
+            }
+            return true;
         }
+        return false;
     }
 }

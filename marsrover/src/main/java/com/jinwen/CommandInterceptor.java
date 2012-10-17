@@ -8,5 +8,5 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public interface CommandInterceptor {
-    public void interceptCommand(String command);
+    public boolean interceptCommand(String command);
 }

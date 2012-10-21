@@ -8,5 +8,18 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public enum CityName {
-    XIAN, BEIJING, CHENGDU, SHANGHAI, GUANGZHOU
+    XIAN("A"), BEIJING("B"), CHENGDU("C"), SHANGHAI("D"), GUANGZHOU("E");
+
+    private String cityName;
+
+    CityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public static CityName getCityName(String cityName) {
+        for (CityName var : values() ){
+            if (var.cityName.equals(cityName)) return var;
+        }
+        return null;
+    }
 }

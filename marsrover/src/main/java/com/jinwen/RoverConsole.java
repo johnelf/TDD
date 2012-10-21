@@ -1,5 +1,8 @@
 package com.jinwen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: twer
@@ -8,12 +11,11 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public class RoverConsole implements CommandInterceptor{
-    public GeographerAdaptor geographerAdaptor;
-    public MarsRoverController marsRoverController;
+    private List<MarsRover> marsRoverList = new ArrayList<MarsRover>();
+    private int currentIndex;
 
-    public RoverConsole(GeographerAdaptor geographerAdaptor, MarsRoverController marsRoverController) {
-        this.geographerAdaptor = geographerAdaptor;
-        this.marsRoverController = marsRoverController;
+    public RoverConsole() {
+        currentIndex = 0;
     }
 
     @Override
@@ -27,5 +29,26 @@ public class RoverConsole implements CommandInterceptor{
             return true;
         }
         return false;
+    }
+
+    public boolean getMarsRover() {
+        return !marsRoverList.isEmpty() && currentIndex  < marsRoverList.size();
+    }
+
+    public void addMarsRover(MarsRover marsRover) {
+        marsRoverList.add(marsRover);
+    }
+
+    public String inputCommandLine(String command) {
+        if (!interceptCommand(command) || !getMarsRover()) {
+            return null;
+        } else {
+            MarsRover marsRover = marsRoverList.get(currentIndex);
+            for (char var : command.toCharArray()) {
+                marsRover.execute(var);
+            }
+            currentIndex++;
+            return marsRover.getLocation();
+        }
     }
 }

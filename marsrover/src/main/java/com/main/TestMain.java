@@ -10,23 +10,21 @@ import com.jinwen.*;
  * To change this template use File | Settings | File Templates.
  */
 public class TestMain {
-    public static void main() {
+    public static void main(String args[]) {
+        MarsRover marsRover1 = new MarsRover(1, 2, 'N');
+        MarsRover marsRover2 = new MarsRover(3, 3, 'E');
+        GeographerOnMars geographerOnMars = new GeographerOnMars("Mars", 5, 5);
+        RoverConsole roverConsole = new RoverConsole();
 
-        MarsRover marsRover1 = new MarsRover(1, 2, Direction.N);
-        MarsRover marsRover2 = new MarsRover(3, 3, Direction.E);
+        marsRover1.setMapForMarsRover(geographerOnMars);
+        marsRover2.setMapForMarsRover(geographerOnMars);
+        roverConsole.addMarsRover(marsRover1);
+        roverConsole.addMarsRover(marsRover2);
 
-        RoverConsole roverConsole = new RoverConsole(new GeographerAdaptor("MarsPlateau", 5, 5), new MarsRoverController());
-
-        marsRover1.getMapForMarsRover(roverConsole.geographerAdaptor);
-        marsRover2.getMapForMarsRover(roverConsole.geographerAdaptor);
-
-        roverConsole.marsRoverController.addMarsRover(marsRover1);
-        roverConsole.marsRoverController.addMarsRover(marsRover2);
-
-        roverConsole.marsRoverController.connectWithMarsRover(marsRover1);
-        roverConsole.marsRoverController.inputCommand("LMLMLMLMM");
-        roverConsole.marsRoverController.getNextMarsRover();
-        roverConsole.marsRoverController.inputCommand("MMRMMRMRRM");
+        roverConsole.getMarsRover();
+        System.out.println(roverConsole.inputCommandLine("LMLMLMLMM"));
+        roverConsole.getMarsRover();
+        System.out.println(roverConsole.inputCommandLine("MMRMMRMRRM"));
 
     }
 }

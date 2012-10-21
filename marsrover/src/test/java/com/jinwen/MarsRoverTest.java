@@ -18,32 +18,28 @@ public class MarsRoverTest {
 
     @Before
     public void setup() {
-        marsRover = new MarsRover(1, 2, Direction.N);
+        marsRover = new MarsRover(1, 2, 'N');
         geographerOnMars = new GeographerOnMars("TestMap", 5, 5);
-        marsRover.getMapForMarsRover(geographerOnMars);
+        marsRover.setMapForMarsRover(geographerOnMars);
     }
 
     @Test
     public void shouldReturnRealPosition() {
         marsRover.move();
-        assertEquals("1, 3 ", marsRover.getLocation());
+        assertEquals("1, 3 N\n", marsRover.getLocation());
         marsRover.move();
-        assertEquals("1, 4 ", marsRover.getLocation());
+        assertEquals("1, 4 N\n", marsRover.getLocation());
         marsRover.move();
-        assertEquals("1, 5 ", marsRover.getLocation());
+        assertEquals("1, 5 N\n", marsRover.getLocation());
         marsRover.move();
-        assertEquals("1, 5 ", marsRover.getLocation());
+        assertEquals("1, 5 N\n", marsRover.getLocation());
     }
 
     @Test
-    public void shouldReturnCorrectDirection() {
-        marsRover.changeDirection("L");
-        assertEquals("W\n", marsRover.getDirection());
-        marsRover.changeDirection("R");
-        assertEquals("N\n", marsRover.getDirection());
-        marsRover.changeDirection("R");
-        assertEquals("E\n", marsRover.getDirection());
-        marsRover.changeDirection("R");
-        assertEquals("S\n", marsRover.getDirection());
+    public void shouldReturnProperDirection() {
+        marsRover.changeDirection('R');
+        assertEquals("1, 2 E\n", marsRover.getLocation());
+        marsRover.changeDirection('L');
+        assertEquals("1, 2 N\n", marsRover.getLocation());
     }
 }

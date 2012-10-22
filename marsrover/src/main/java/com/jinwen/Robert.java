@@ -8,5 +8,5 @@ package com.jinwen;
  * To change this template use File | Settings | File Templates.
  */
 public interface Robert {
-    public int move();
+    public void move();
 }

@@ -9,3 +9,4 @@
 *.imr
 *.iws
 /target
+marsrover/.idea/*

@@ -7,49 +7,43 @@ package com.jinwen;
  * Time: 10:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Direction {
-    private char direction;
-
-    Direction(char direction) {
-        this.direction = direction;
-    }
-
-    public char getDirection() {
-        return direction;
-    }
-
-    public void turnRight() {
-        switch (direction) {
-            case 'E':
-                direction = 'S';
-                break;
-            case 'N':
-                direction = 'E';
-                break;
-            case 'W':
-                direction = 'N';
-                break;
-            case 'S':
-                direction = 'W';
-                break;
+public enum Direction {
+    W {
+        @Override
+        protected void move(GenericMap map, Position position) {
+            if (position.getxPosition() - 1 >= 0) position.decreaseX();
         }
+    },
+    N {
+        @Override
+        protected void move(GenericMap map, Position position) {
+            if (position.getyPosition() + 1 <= map.getHeight()) position.increaseY();
+        }
+    },
+    E {
+        @Override
+        protected void move(GenericMap map, Position position) {
+            if (position.getxPosition() + 1 <= map.getWidth()) position.increaseX();
+        }
+    },
+    S {
+        @Override
+        protected void move(GenericMap map, Position position) {
+            if (position.getyPosition() - 1 >= 0) position.decreaseY();
+        }
+    };
+
+
+    abstract protected void move(GenericMap map, Position position);
+
+    public Direction right() {
+        int i = (ordinal() + 1) % values().length;
+        return Direction.values()[i];
     }
 
-    public void turnLeft() {
-        switch (direction) {
-            case 'E':
-                direction = 'N';
-                break;
-            case 'N':
-                direction = 'W';
-                break;
-            case 'W':
-                direction = 'S';
-                break;
-            case 'S':
-                direction = 'E';
-                break;
-        }
+    public Direction left() {
+        int i = (ordinal() + values().length - 1) % values().length;
+        return Direction.values()[i];
     }
 
 }

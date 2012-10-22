@@ -1,5 +1,8 @@
 package com.jinwen;
 
+import com.jinwen.commands.MoveCommand;
+import com.jinwen.commands.TurnLeftCommand;
+import com.jinwen.commands.TurnRightCommand;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,28 +21,28 @@ public class MarsRoverTest {
 
     @Before
     public void setup() {
-        marsRover = new MarsRover(1, 2, 'N');
+        marsRover = new MarsRover(1, 2, "N");
         geographerOnMars = new GeographerOnMars("TestMap", 5, 5);
         marsRover.setMapForMarsRover(geographerOnMars);
     }
 
     @Test
     public void shouldReturnRealPosition() {
-        marsRover.move();
-        assertEquals("1, 3 N\n", marsRover.getLocation());
-        marsRover.move();
-        assertEquals("1, 4 N\n", marsRover.getLocation());
-        marsRover.move();
-        assertEquals("1, 5 N\n", marsRover.getLocation());
-        marsRover.move();
-        assertEquals("1, 5 N\n", marsRover.getLocation());
+        new MoveCommand(geographerOnMars).execute(marsRover.getStatus());
+        assertEquals("1, 3 N\n", marsRover.toString());
+        new MoveCommand(geographerOnMars).execute(marsRover.getStatus());
+        assertEquals("1, 4 N\n", marsRover.toString());
+        new MoveCommand(geographerOnMars).execute(marsRover.getStatus());
+        assertEquals("1, 5 N\n", marsRover.toString());
+        new MoveCommand(geographerOnMars).execute(marsRover.getStatus());
+        assertEquals("1, 5 N\n", marsRover.toString());
     }
 
     @Test
     public void shouldReturnProperDirection() {
-        marsRover.changeDirection('R');
-        assertEquals("1, 2 E\n", marsRover.getLocation());
-        marsRover.changeDirection('L');
-        assertEquals("1, 2 N\n", marsRover.getLocation());
+        new TurnRightCommand().execute(marsRover.getStatus());
+        assertEquals("1, 2 E\n", marsRover.toString());
+        new TurnLeftCommand().execute(marsRover.getStatus());
+        assertEquals("1, 2 N\n", marsRover.toString());
     }
 }

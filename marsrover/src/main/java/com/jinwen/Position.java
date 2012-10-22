@@ -33,4 +33,8 @@ public class Position {
         yPosition++;
     }
 
+    @Override
+    public String toString() {
+        return xPosition + ", " + yPosition;
+    }
 }

@@ -1,5 +1,7 @@
 package com.jinwen;
 
+import com.jinwen.commands.CommandInterceptor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * Time: 10:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RoverConsole implements CommandInterceptor{
+public class RoverConsole implements CommandInterceptor {
     private List<MarsRover> marsRoverList = new ArrayList<MarsRover>();
     private int currentIndex;
 
@@ -48,7 +50,7 @@ public class RoverConsole implements CommandInterceptor{
                 marsRover.execute(var);
             }
             currentIndex++;
-            return marsRover.getLocation();
+            return marsRover.toString();
         }
     }
 }

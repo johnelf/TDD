@@ -1,45 +1,29 @@
 package com.jinwen;
 
-public class MarsRover implements Robert{
-    private Direction direction;
+import com.jinwen.commands.CommandFactory;
+
+public class MarsRover{
     private GenericMap map = null;
-    private Position position;
+    private RoverStatus status;
 
     public void setMapForMarsRover(GenericMap map) {
         this.map = map;
     }
 
-    public MarsRover(int x, int y, char direction) {
-        this.position = new Position(x, y);
-        this.direction = Direction.valueOf(String.valueOf(direction));
+    public MarsRover(int x, int y, String direction) {
+        status = new RoverStatus(Direction.valueOf(direction), new Position(x, y));
     }
 
-    @Override
-    public void move() {
-        if (map == null) {
-            return;
-        }
-
-        direction.move(map, position);
+    public void execute(char commandChar) {
+        CommandFactory commandFactory = new CommandFactory(map);
+        commandFactory.createCommand(commandChar).execute(status);
     }
 
-    public void changeDirection(char command) {
-        if (command == 'L') {
-            direction = direction.left();
-        }else {
-            direction = direction.right();
-        }
+    public RoverStatus getStatus() {
+        return status;
     }
 
-    public String getLocation() {
-        return Integer.toString(position.getxPosition()) + ", " + Integer.toString(position.getyPosition()) + " " + direction + "\n";
-    }
-
-    public void execute(char command) {
-        if (command == 'M') {
-            move();
-        } else if (command == 'L' || command == 'R') {
-            changeDirection(command);
-        }
+    public String toString() {
+        return status.toString();
     }
 }

@@ -15,8 +15,8 @@ import static junit.framework.Assert.assertNull;
  */
 public class RoverConsoleTest{
     private RoverConsole roverConsole;
-    private MarsRover marsRover1 = new MarsRover(1, 2, 'N');
-    private MarsRover marsRover2 = new MarsRover(3, 3, 'E');
+    private MarsRover marsRover1 = new MarsRover(1, 2, "N");
+    private MarsRover marsRover2 = new MarsRover(3, 3, "E");
 
     @Before
     public void setup() {

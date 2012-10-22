@@ -11,8 +11,8 @@ import com.jinwen.*;
  */
 public class TestMain {
     public static void main(String args[]) {
-        MarsRover marsRover1 = new MarsRover(1, 2, 'N');
-        MarsRover marsRover2 = new MarsRover(3, 3, 'E');
+        MarsRover marsRover1 = new MarsRover(1, 2, "N");
+        MarsRover marsRover2 = new MarsRover(3, 3, "E");
         GeographerOnMars geographerOnMars = new GeographerOnMars("Mars", 5, 5);
         RoverConsole roverConsole = new RoverConsole();
 

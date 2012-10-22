@@ -1,4 +1,4 @@
-package com.jinwen;
+package com.jinwen.commands;
 
 /**
  * Created with IntelliJ IDEA.

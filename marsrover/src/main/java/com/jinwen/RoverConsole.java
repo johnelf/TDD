@@ -45,7 +45,7 @@ public class RoverConsole implements CommandInterceptor{
         } else {
             MarsRover marsRover = marsRoverList.get(currentIndex);
             for (char var : command.toCharArray()) {
-                marsRover.execute(var);
+                marsRover.execute(Command.valueOf(String.valueOf(var)));
             }
             currentIndex++;
             return marsRover.getLocation();

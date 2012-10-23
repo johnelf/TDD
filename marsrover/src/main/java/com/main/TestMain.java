@@ -11,8 +11,8 @@ import com.jinwen.*;
  */
 public class TestMain {
     public static void main(String args[]) {
-        MarsRover marsRover1 = new MarsRover(1, 2, 'N');
-        MarsRover marsRover2 = new MarsRover(3, 3, 'E');
+        MarsRover marsRover1 = new MarsRover(1, 2, Direction.N);
+        MarsRover marsRover2 = new MarsRover(3, 3, Direction.E);
         GeographerOnMars geographerOnMars = new GeographerOnMars("Mars", 5, 5);
         RoverConsole roverConsole = new RoverConsole();
 
@@ -21,9 +21,7 @@ public class TestMain {
         roverConsole.addMarsRover(marsRover1);
         roverConsole.addMarsRover(marsRover2);
 
-        roverConsole.getMarsRover();
         System.out.println(roverConsole.inputCommandLine("LMLMLMLMM"));
-        roverConsole.getMarsRover();
         System.out.println(roverConsole.inputCommandLine("MMRMMRMRRM"));
 
     }

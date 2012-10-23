@@ -18,28 +18,28 @@ public class MarsRoverTest {
 
     @Before
     public void setup() {
-        marsRover = new MarsRover(1, 2, 'N');
+        marsRover = new MarsRover(1, 2, Direction.N);
         geographerOnMars = new GeographerOnMars("TestMap", 5, 5);
         marsRover.setMapForMarsRover(geographerOnMars);
     }
 
     @Test
     public void shouldReturnRealPosition() {
-        marsRover.move();
+        marsRover.execute(Command.M);
         assertEquals("1, 3 N\n", marsRover.getLocation());
-        marsRover.move();
+        marsRover.execute(Command.M);
         assertEquals("1, 4 N\n", marsRover.getLocation());
-        marsRover.move();
+        marsRover.execute(Command.M);
         assertEquals("1, 5 N\n", marsRover.getLocation());
-        marsRover.move();
+        marsRover.execute(Command.M);
         assertEquals("1, 5 N\n", marsRover.getLocation());
     }
 
     @Test
     public void shouldReturnProperDirection() {
-        marsRover.changeDirection('R');
+        marsRover.execute(Command.R);
         assertEquals("1, 2 E\n", marsRover.getLocation());
-        marsRover.changeDirection('L');
+        marsRover.execute(Command.L);
         assertEquals("1, 2 N\n", marsRover.getLocation());
     }
 }

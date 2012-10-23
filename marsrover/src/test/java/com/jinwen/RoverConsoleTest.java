@@ -15,8 +15,9 @@ import static junit.framework.Assert.assertNull;
  */
 public class RoverConsoleTest{
     private RoverConsole roverConsole;
-    private MarsRover marsRover1 = new MarsRover(1, 2, 'N');
-    private MarsRover marsRover2 = new MarsRover(3, 3, 'E');
+    private MarsRover marsRover1 = new MarsRover(1, 2, Direction.N);
+    private MarsRover marsRover2 = new MarsRover(3, 3, Direction.E);
+    private GenericMap marsMap = new GeographerOnMars("Mars", 5, 5);
 
     @Before
     public void setup() {
@@ -49,26 +50,20 @@ public class RoverConsoleTest{
     public void shouldNotGetMarsRoverPositionAndLocationWhenCommandIsInvalid() {
         roverConsole.addMarsRover(marsRover1);
         roverConsole.addMarsRover(marsRover2);
-        roverConsole.getMarsRover();
         assertNull(roverConsole.inputCommandLine("LOP"));
     }
 
     @Test
     public void shouldGetMarsRoverPositionAndLocationWhenCommandIsValid() {
+        marsRover1.setMapForMarsRover(marsMap);
+        marsRover2.setMapForMarsRover(marsMap);
         roverConsole.addMarsRover(marsRover1);
         roverConsole.addMarsRover(marsRover2);
-        roverConsole.getMarsRover();
-        assertEquals("1, 2 S\n", roverConsole.inputCommandLine("LLM"));
+        assertEquals("1, 1 S\n", roverConsole.inputCommandLine("LLM"));
     }
 
     @Test
     public void shouldNotExecuteAnyCommandWhenNotGetMarsRover() {
-        roverConsole.addMarsRover(marsRover1);
-        roverConsole.addMarsRover(marsRover2);
-        roverConsole.getMarsRover();
-        roverConsole.inputCommandLine("RL");
-        roverConsole.getMarsRover();
-        roverConsole.inputCommandLine("MM");
         assertEquals(false, roverConsole.getMarsRover());
     }
 }

@@ -1,10 +1,7 @@
+
 package com.jinwen;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.jinwen.CityName.getCityName;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,23 +10,57 @@ import static com.jinwen.CityName.getCityName;
  * Time: 10:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RailwayMap implements Indicator {
-    private Map<CityName, Map<CityName, String>> railwayMap = new HashMap<CityName, Map<CityName, String>>();
-    private String mapName = "";
+public class RailwayMap {
+    private Map<String, Map<String, String>> railwayMap = new HashMap<String, Map<String, String>>();
+    private PathResolver pathResolver = new PathResolver();
+    private String oriMap = "";
 
-    public String getMapName() {
-        return mapName;
+    public String getOriMap() {
+        return oriMap;
     }
 
-    public void setMapName(String mapName) {
-        this.mapName = mapName;
+    RailwayMap() {
     }
 
-    public boolean isMapExist() {
-        return !railwayMap.isEmpty();
+    RailwayMap(String map) {
+        this.mapLoader(map);
+    }
+
+    private void setPathInfo(String path) {
+        String srcCity = String.valueOf(path.charAt(0)),
+                dstCity = String.valueOf(path.charAt(1)),
+                distance = String.valueOf(path.charAt(2));
+        if (railwayMap.containsKey(srcCity)) {
+            Map<String, String> otherCity = railwayMap.get(srcCity);
+            otherCity.put(dstCity, distance);
+            railwayMap.put(srcCity, otherCity);
+        } else {
+            Map<String, String> temp = new HashMap<String, String>();
+            temp.put(dstCity, distance);
+            railwayMap.put(srcCity, temp);
+        }
+    }
+
+    private int getDistance(String start, String finish) throws Exception {
+        if (start.equals(finish)) {
+            return 0;
+        }
+        if (railwayMap.containsKey(start)) {
+            for (Map.Entry<String, String> entry : railwayMap.get(start).entrySet()) {
+                if (entry.getKey().equals(finish)) {
+                    return Integer.valueOf(entry.getValue());
+                }
+            }
+        }
+        throw new Exception("not found");
+    }
+
+    public Map<String, Map<String, String>> getRailwayMap() {
+        return railwayMap;
     }
 
     public boolean mapLoader(String map) {
+        oriMap = map;
         if (!map.isEmpty()) {
             for (String path : map.split(",")) {
                 setPathInfo(path);
@@ -39,24 +70,30 @@ public class RailwayMap implements Indicator {
         return false;
     }
 
-    private void setPathInfo(String path) {
-        String srcCity = String.valueOf(path.charAt(0)),
-               dstCity = String.valueOf(path.charAt(1)),
-               distance = String.valueOf(path.charAt(2));
-        Map<CityName, String> otherCity = new HashMap<CityName, String>();
-        otherCity.put(getCityName(dstCity), distance);
-        for (char data : path.toCharArray()) {
-
+    public int getPathDistance(String path) throws Exception{
+        int index = 0;
+        int distance = 0;
+        while (index + 1 < path.length()) {
+            try {
+                distance += getDistance(String.valueOf(path.charAt(index)), String.valueOf(path.charAt(index + 1)));
+            }   catch (Exception e) {
+                return -1;
+            }
+            index++;
         }
-
-        railwayMap.put(getCityName(srcCity), otherCity);
+        return distance;
     }
 
-    public List<String> getRoute(String start, String finish) {
-        return null;
+
+    public ArrayList<ArrayList<String>> getPath(String start, String finish) {
+        pathResolver.buildDFSTree(start, railwayMap);
+        pathResolver.getAllPath(finish, pathResolver.getRoot(), new ArrayList<String>());
+
+        return pathResolver.getPathList();
     }
 
-    public int getDistance(String path) {
-        return 0;
+    public int getPathNum(String start, String finish) {
+        getPath(start, finish);
+        return pathResolver.getPathNum();
     }
 }

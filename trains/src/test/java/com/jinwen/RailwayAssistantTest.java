@@ -34,8 +34,8 @@ public class RailwayAssistantTest {
         assertEquals(9, railwayAssistant.getShortestPath("A", "C"));
     }
 
-//    @Test
-//    public void testGetPathsDistanceLessThan() throws Exception {
-//        assertEquals(7, railwayAssistant.getDistanceLessThanPathsNum("C", "C", 30));
-//    }
+    @Test
+    public void testGetPathsDistanceLessThan() throws Exception {
+        assertEquals(7, railwayAssistant.getLessDistancePathsNum("C", "C", 30));
+    }
 }

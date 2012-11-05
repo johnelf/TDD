@@ -70,34 +70,46 @@ public class RailwayAssistant{
         return -1;
     }
 
-//    public int getDistanceLessThanPathsNum(String start, String finish, int length) throws Exception {
-//        ArrayList<ArrayList<String>> result = railwayMap.getPath(start, finish);
-//        ArrayList<String> pathSet = new ArrayList<String>();
-//        if (result.size() > 0) {
-//            for (ArrayList<String> element : result) {
-//                String railway = "";
-//                for (String str : element) {
-//                    railway += str;
-//                }
-//                if (railwayMap.getPathDistance(railway) < length) {
-//                    pathSet.add(railway);
-//                }
-//            }
-//            Collections.sort(pathSet, );
-//            sortPathSet(pathSet);
-//        }
-//        return pathSet.size();
-//    }
-//
-//    public int compare(Object o1, Object o2) {
-//        String s1 = (String) o1;
-//        String s2 = (String) o2;
-//        try {
-//            if (railwayMap.getPathDistance(s1) > railwayMap.getPathDistance(s2))
-//                return 1;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return 0;
-//    }
+    public int getLessDistancePathsNum(String start, String finish, int length) throws Exception {
+        ArrayList<String> resultSet = new ArrayList<String>();
+        ArrayList<ArrayList<String>> result = railwayMap.getPath(start, finish);
+        ArrayList<String> pathSet = new ArrayList<String>();
+        if (result.size() > 0) {
+            for (ArrayList<String> element : result) {
+                String railway = "";
+                for (String str : element) {
+                    railway += str;
+                }
+                if (railwayMap.getPathDistance(railway) < length) {
+                    pathSet.add(railway);
+                    resultSet.add(railway);
+                }
+            }
+            ArrayList<String> suffix = getSuffix(pathSet);
+            for (String prefix : pathSet) {
+                findOtherRoads(resultSet, prefix, suffix, length);
+            }
+        }
+        return resultSet.size();
+    }
+
+    private void findOtherRoads(ArrayList<String> resultSet, String prefix, ArrayList<String> suffix, int distance) throws Exception {
+        if (railwayMap.getPathDistance(prefix) >= distance) {
+            return;
+        }
+        for (String str : suffix) {
+            if (railwayMap.getPathDistance(prefix + str) < distance) {
+                resultSet.add(prefix + str);
+                findOtherRoads(resultSet, prefix + str, suffix, distance);
+            }
+        }
+    }
+
+    private ArrayList<String> getSuffix(ArrayList<String> pathSet) {
+        ArrayList<String> suffix = new ArrayList<String>();
+        for (String str : pathSet) {
+            suffix.add(str.substring(1));
+        }
+        return suffix;
+    }
 }
